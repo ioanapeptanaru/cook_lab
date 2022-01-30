@@ -16,16 +16,16 @@ class AppPage extends StatefulWidget {
   AppPage({Key? key, this.pageIndex = 2}) : super(key: key);
 
   @override
-  _AppPageState createState() => _AppPageState();
+  AppPageState createState() => AppPageState();
 }
 
-class _AppPageState extends State<AppPage> {
+class AppPageState extends State<AppPage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         extendBody: true,
-        drawer: NavBar(),
+        drawer: NavBar(mainPagePtr: this),
         appBar: AppBar(
           centerTitle: true,
           title: Text("CookLab"),
@@ -42,5 +42,11 @@ class _AppPageState extends State<AppPage> {
       setState(() {
         widget.pageIndex = index;
       });
+  }
+
+  @override
+  void didUpdateWidget(AppPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    onPageChange(oldWidget.pageIndex);
   }
 }

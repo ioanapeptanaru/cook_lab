@@ -1,3 +1,4 @@
+import 'package:cook_lab/Pages/app_page.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:cook_lab/Pages/category_page.dart';
@@ -55,5 +56,4 @@ class _BottomNavBarState extends State<BottomNavBar> {
   {
       widget.onPageChange(index);
   }
-  
 }

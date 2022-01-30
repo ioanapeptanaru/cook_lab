@@ -9,8 +9,9 @@ enum NavigationItem { HOME, PROFILE, FAVORITES }
 
 class NavBar extends StatefulWidget {
 
+  AppPageState mainPagePtr;
 
-  const NavBar({Key? key}) : super(key: key);
+  NavBar({required this.mainPagePtr, Key? key}) : super(key: key);
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -111,18 +112,15 @@ class _NavBarState extends State<NavBar> {
   void _onMenuItemClicked(NavigationItem item, BuildContext context) {
 
     if (item == NavigationItem.HOME) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AppPage(pageIndex: PAGE.Category.index)));
+      widget.mainPagePtr.onPageChange(2);
     }
 
     if (item == NavigationItem.PROFILE) {
-    Navigator.push(
-    context, MaterialPageRoute(builder: (context) => AppPage(pageIndex: PAGE.Profile.index,)));
+      widget.mainPagePtr.onPageChange(0);
     }
 
     if (item == NavigationItem.FAVORITES) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AppPage(pageIndex: PAGE.Favorites.index,)));
+      widget.mainPagePtr.onPageChange(3);
     }
 
   }
