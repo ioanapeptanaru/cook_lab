@@ -13,7 +13,6 @@ class ProfilePage extends TemplatePage {
             children: [
               Text(
                 'My Profile',
-                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 34,
                 ),

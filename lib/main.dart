@@ -52,7 +52,9 @@ class _CookLabState extends State<CookLab> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Cook Lab',
-      theme: ThemeData.light(),
+      theme: ThemeData(
+      primarySwatch: Colors.blue,
+    ),
       darkTheme: ThemeData.dark(),
       themeMode: getSavedTheme(),
       //home: AppPage(pageIndex: PAGE.Category.index,),
