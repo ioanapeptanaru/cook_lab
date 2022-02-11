@@ -12,37 +12,49 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
+
+    const BoxDecoration logoDecoration =
+        BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/logo.png'),
+          ),
+    );
+
+    Text signupText = Text(
+        'Sign up',
+        style: Theme.of(context).textTheme.headline4,
+    );
+
+    TextButton signinBtn = TextButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SignInPage())
+          );
+        },
+        child:
+          const Text('Already have an account? Sign in here!')
+    );
+
     return Scaffold(
       body: SingleChildScrollView(
         reverse: true,
         child: Column(
           children: [
-            SizedBox(height: 100,),
+            const SizedBox(height: 100),
             Container(
               height: 120.0,
               width: 120.0,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/logo.png'),
-                ),
-              ),
+              decoration: logoDecoration
             ),
-            SizedBox(
-              height: 20,
+            const SizedBox(
+              height: 20
             ),
-            Text(
-              'Sign up',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            Padding(
+            signupText,
+            const Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
-                child: SignUpForm()),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignInPage()));
-                },
-                child: Text('Already have an account? Sign in here!'))
+                child: SignUpForm()
+            ),
+            signinBtn
           ],
         ),
       ),

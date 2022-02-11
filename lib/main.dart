@@ -4,12 +4,12 @@ import 'Pages/sign_in_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'Enums/themes_enum.dart';
+import 'utils.dart';
 
 
 void main() async {
   runApp(CookLab());
 }
-
 
 class CookLab extends StatefulWidget {
 
@@ -32,8 +32,8 @@ class _CookLabState extends State<CookLab> {
   {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _userState = prefs.getBool('shownIntroScreen') ?? false;
-      _theme = prefs.getString("theme") ?? PrefTheme.DEFAULT.toString();
+      _userState = prefs.getBool(SharedPrefUtils.wasIntroScreenShown) ?? false;
+      _theme = prefs.getString(SharedPrefUtils.themeStr) ?? PrefTheme.DEFAULT.toString();
     });
     debugPrint("shownIntroScreen is : " + _userState.toString());
     debugPrint("theme is : " + _theme);
@@ -41,23 +41,28 @@ class _CookLabState extends State<CookLab> {
 
   ThemeMode getSavedTheme()
   {
-    if(_theme == PrefTheme.DARK.toString())
+    if(_theme == PrefTheme.DARK.toString()) {
       return ThemeMode.dark;
-    if(_theme == PrefTheme.LIGHT.toString())
+    }
+    if(_theme == PrefTheme.LIGHT.toString()) {
       return ThemeMode.light;
+    }
     return ThemeMode.system;
   }
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Cook Lab',
+      title: AppUtils.appName,
       theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
       darkTheme: ThemeData.dark(),
       themeMode: getSavedTheme(),
-      //home: AppPage(pageIndex: PAGE.Category.index,),
+      /*
+      Use this to skip intro and sign in page
+      home: AppPage(pageIndex: PAGE.Category.index,),
+      */
       home: _userState ? SignInPage() : OnBoardingPage(),
 
       debugShowCheckedModeBanner: false,

@@ -1,6 +1,40 @@
+import 'package:cook_lab/ChecklistItem.dart';
 import 'package:flutter/material.dart';
 
-bool toggle = false;
+class TaskTile extends StatefulWidget {
+
+  ChecklistItem item;
+  void Function(bool, int) onToggle;
+
+  TaskTile({required this.item, required this.onToggle});
+
+  @override
+  State<TaskTile> createState() => TaskTileState();
+}
+
+class TaskTileState extends State<TaskTile> {
+  @override
+  Widget build(BuildContext context) {
+    return CheckboxListTile(
+      value: widget.item.toggleState,
+      onChanged: (value) {
+        setState(() {
+          if (!value!) {
+            widget.item.toggleState = false;
+          } else {
+            widget.item.toggleState = true;
+          }
+          widget.onToggle(widget.item.toggleState, widget.item.index);
+        });
+      },
+      title: _strikeThrough(
+          todoToggle: widget.item.toggleState,
+          todoText: widget.item.title
+      ),
+      controlAffinity: ListTileControlAffinity.leading,
+    );
+  }
+}
 
 class _strikeThrough extends StatelessWidget {
   bool todoToggle;
@@ -8,16 +42,16 @@ class _strikeThrough extends StatelessWidget {
 
   _strikeThrough({required this.todoToggle, required this.todoText}) : super();
 
-  Widget _strikewidget() {
+  Widget _strikeWidget() {
     if (todoToggle == false) {
       return Text(
         todoText,
-        style: TextStyle(fontSize: 22.0),
+        style: const TextStyle(fontSize: 22.0),
       );
     } else {
       return Text(
         todoText,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 22.0,
           decoration: TextDecoration.lineThrough,
         ),
@@ -27,31 +61,6 @@ class _strikeThrough extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _strikewidget();
-  }
-}
-
-class TaskTile extends StatefulWidget {
-  @override
-  State<TaskTile> createState() => TaskTileState();
-}
-
-class TaskTileState extends State<TaskTile> {
-  @override
-  Widget build(BuildContext context) {
-    return CheckboxListTile(
-      value: toggle,
-      onChanged: (bool) {
-        setState(() {
-          if (!bool!) {
-            toggle = false;
-          } else {
-            toggle = true;
-          }
-        });
-      },
-      title: _strikeThrough(todoText: 'Milk', todoToggle: toggle),
-      controlAffinity: ListTileControlAffinity.leading,
-    );
+    return _strikeWidget();
   }
 }

@@ -6,7 +6,7 @@ class FavoritesPage extends TemplatePage
 {
   @override
   Widget getBody() {
-    return Text("Saved Recipes");
+    return const Text("Saved Recipes");
   }
 
 }

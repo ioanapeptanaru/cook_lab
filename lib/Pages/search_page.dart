@@ -6,7 +6,7 @@ class SearchPage extends TemplatePage
 {
   @override
   Widget getBody() {
-    return Text("Search Page");
+    return const Text("Search Page");
   }
 
 }
