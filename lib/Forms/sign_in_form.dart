@@ -19,38 +19,38 @@ class _SignInFormState extends State<SignInForm> {
   @override
   Widget build(BuildContext context) {
 
-
     TextFieldWidget _nameField = TextFieldWidget(
-      controller: nameController,
-      icon: const Icon(Icons.person),
-      labelText: "Username",
-      obscureText: false,
+        controller: nameController,
+        icon: const Icon(Icons.person),
+        labelText: "Username",
+        obscureText: false,
     );
 
     TextFieldWidget _passwordField = TextFieldWidget(
-      controller: passwordController,
-      obscureText: _isHidden,
-      icon: const Icon(Icons.lock),
-      labelText: "Password",
-      suffix: InkWell(
-        onTap: _togglePasswordView,
-        child: Icon(
-          _isHidden ? Icons.visibility_off : Icons.visibility,
+        controller: passwordController,
+        obscureText: _isHidden,
+        icon: const Icon(Icons.lock),
+        labelText: "Password",
+        suffix: InkWell(
+          onTap: _togglePasswordView,
+          child: Icon(
+            _isHidden ? Icons.visibility_off : Icons.visibility,
+          ),
         ),
-      ),
     );
 
     SubmitButton _signinBtn = SubmitButton(
-      onPressed: () {
-        debugPrint('Username is "${_nameField.fieldContent.text}"');
-        debugPrint('Password is "${_passwordField.fieldContent.text}"');
+        onPressed: () {
+          debugPrint('Username is "${_nameField.fieldContent.text}"');
+          debugPrint('Password is "${_passwordField.fieldContent.text}"');
 
-        if (_formKey.currentState!.validate()) {
-          Navigator.pop(context);
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) => AppPage()));
-        }
-      },
-      child: const Text('Log in'),
+          if (_formKey.currentState!.validate()) {
+            Navigator.pop(context);
+            Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (_) => AppPage()));
+          }
+        },
+        child: const Text('Log in')
     );
 
     return Form(
@@ -59,14 +59,13 @@ class _SignInFormState extends State<SignInForm> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               _nameField,
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _passwordField,
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               _signinBtn,
-
-            ],
+              ],
           ),
         ),
     );

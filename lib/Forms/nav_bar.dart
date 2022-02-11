@@ -61,8 +61,8 @@ class _NavBarState extends State<NavBar> {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-              accountName: Text('Emily Sanchez'),
-              accountEmail: Text('emily.sanchez@gmail.com'),
+              accountName: const Text('Emily Sanchez'),
+              accountEmail: const Text('emily.sanchez@gmail.com'),
           currentAccountPicture: CircleAvatar(
             child: ClipOval(
               //child: Icon(Icons.person, size: 50),
@@ -76,32 +76,32 @@ class _NavBarState extends State<NavBar> {
           ),),
 
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text('My Profile'),
+            leading: const Icon(Icons.person),
+            title: const Text('My Profile'),
             onTap: (){_onMenuItemClicked(NavigationItem.PROFILE, context);},
           ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
+            leading: const Icon(Icons.home),
+            title: const Text('Home'),
             onTap: (){_onMenuItemClicked(NavigationItem.HOME, context);},
           ),
           ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text('Saved Recipes'),
+            leading: const Icon(Icons.favorite),
+            title: const Text('Saved Recipes'),
             onTap: (){_onMenuItemClicked(NavigationItem.FAVORITES, context);},
           ),
           SwitchListTile(
-            title: Text('Dark Mode'),
+            title: const Text('Dark Mode'),
             value: Get.isDarkMode ? true : false,
             onChanged: (bool value){
               setDarkMode(value);
             },
-            secondary: Icon(Icons.settings),
+            secondary: const Icon(Icons.settings),
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text('Log out'),
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text('Log out'),
             onTap: (){},
           ),
         ],

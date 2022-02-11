@@ -10,8 +10,16 @@ import 'category_page.dart';
 
 class AppPage extends StatefulWidget {
 
-  var list = [ProfilePage(), SearchPage(), CategoryPage(), FavoritesPage(), GroceryListPage()];
-  var pageIndex;
+  var list =
+  [
+    ProfilePage(),
+    SearchPage(),
+    CategoryPage(),
+    FavoritesPage(),
+    GroceryListPage()
+  ];
+
+  int pageIndex;
   // 2 is the initial page opened -> home
   AppPage({Key? key, this.pageIndex = 2}) : super(key: key);
 
@@ -23,17 +31,21 @@ class AppPageState extends State<AppPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    AppBar appBar = AppBar(
+        centerTitle: true,
+        title: const Text("CookLab"),
+    );
+
     return Scaffold(
         extendBody: true,
         drawer: NavBar(mainPagePtr: this),
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("CookLab"),
+        appBar: appBar,
+        bottomNavigationBar: BottomNavBar(
+            index: widget.pageIndex,
+            onPageChange: onPageChange
         ),
-        bottomNavigationBar:
-            BottomNavBar(index: widget.pageIndex, onPageChange: onPageChange),
-        body:
-            widget.list.elementAt(widget.pageIndex).getBody()
+        body: widget.list.elementAt(widget.pageIndex).getBody()
     );
   }
 
