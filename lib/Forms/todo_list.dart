@@ -28,17 +28,9 @@ class _ToDoListState extends State<ToDoList> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0))),
-                child:SingleChildScrollView(
-                  controller: scrollController,
-                  child:Column(
-                      children: [
-                        Container(child: TaskList(scrollController: scrollController)),
-                        const Divider(thickness: 5,),
-                        Container(child: TaskList(scrollController: scrollController)),
-                      ]
+                child:TaskList()
                   ),
-                )
-              ),),
+                ),
           ],
         ),
       ),
