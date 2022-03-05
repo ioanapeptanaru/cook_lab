@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 
-bool toggle = false;
-
-class _strikeThrough extends StatelessWidget {
+class _StrikeThrough extends StatelessWidget {
   bool todoToggle;
   String todoText;
 
-  _strikeThrough({required this.todoToggle, required this.todoText}) : super();
+  _StrikeThrough({required this.todoToggle, required this.todoText}) : super();
 
   Widget _strikewidget() {
     if (todoToggle == false) {
-      return Text(
-        todoText,
-        style: TextStyle(fontSize: 22.0),
+      return TextFormField(
+          initialValue: todoText,
+        style: const TextStyle(fontSize: 22.0),
+        decoration: const InputDecoration(
+          border: InputBorder.none,)
+
       );
     } else {
-      return Text(
-        todoText,
-        style: TextStyle(
-          fontSize: 22.0,
-          decoration: TextDecoration.lineThrough,
-        ),
+      return TextFormField(
+        initialValue: todoText,
+          style: const TextStyle(
+            fontSize: 22.0,
+            decoration: TextDecoration.lineThrough,
+          ),
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+         ),
       );
     }
   }
@@ -32,26 +36,38 @@ class _strikeThrough extends StatelessWidget {
 }
 
 class TaskTile extends StatefulWidget {
+  String text;
+
+  TaskTile({Key? key, required this.text}) : super(key: key);
+
   @override
   State<TaskTile> createState() => TaskTileState();
 }
 
 class TaskTileState extends State<TaskTile> {
+  bool toggle = false;
+
   @override
   Widget build(BuildContext context) {
-    return CheckboxListTile(
-      value: toggle,
-      onChanged: (bool) {
-        setState(() {
-          if (!bool!) {
-            toggle = false;
-          } else {
-            toggle = true;
-          }
-        });
-      },
-      title: _strikeThrough(todoText: 'Milk', todoToggle: toggle),
-      controlAffinity: ListTileControlAffinity.leading,
+    return ListTile(
+      title: Row(children: [
+        Expanded(
+            child: _StrikeThrough(todoText: widget.text, todoToggle: toggle)),
+      ]),
+      leading: Checkbox(
+        value: toggle,
+        onChanged: (check) {
+          setState(() {
+            if (!check!) {
+              toggle = false;
+            } else {
+              toggle = true;
+            }
+          });
+        },
+      ),
+
+      //controlAffinity: ListTileControlAffinity.leading,
     );
   }
 }

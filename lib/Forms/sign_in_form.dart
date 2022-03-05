@@ -18,8 +18,6 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-
-
     TextFieldWidget _nameField = TextFieldWidget(
       controller: nameController,
       icon: const Icon(Icons.person),
@@ -47,28 +45,34 @@ class _SignInFormState extends State<SignInForm> {
 
         if (_formKey.currentState!.validate()) {
           Navigator.pop(context);
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) => AppPage()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => AppPage()));
         }
       },
-      child: const Text('Log in'),
+      child: const Text('Log in')
     );
 
     return Form(
       key: _formKey,
       child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 20,),
-              _nameField,
-              SizedBox(height: 10,),
-              _passwordField,
-              SizedBox(height: 20,),
-              _signinBtn,
-
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            _nameField,
+            const SizedBox(
+              height: 10,
+            ),
+            _passwordField,
+            const SizedBox(
+              height: 20,
+            ),
+            _signinBtn,
+          ],
         ),
+      ),
     );
   }
 

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -27,11 +27,10 @@ class _CardCategoryState extends State<CardCategory> {
                 colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.dstATop),
                 image: widget.image,
                 height: 180,
-                //width: 180,
                 fit: BoxFit.cover,
                 child: Center(
                   child: Text(widget.text,
-                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold,color: Colors.white),
+                    style: const TextStyle(fontSize: 35, fontWeight: FontWeight.bold,color: Colors.white),
                   ),
                 ),
               ),
