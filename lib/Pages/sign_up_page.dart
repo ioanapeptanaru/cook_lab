@@ -17,8 +17,16 @@ class _SignUpPageState extends State<SignUpPage> {
         reverse: true,
         child: Column(
           children: [
-            SizedBox(height: 100,),
-            Container(
+            const SizedBox(height: 100,),
+            Text(
+              'Sign up',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+
+            const SizedBox(
+              height: 20,
+            ),
+            /*Container(
               height: 120.0,
               width: 120.0,
               decoration: const BoxDecoration(
@@ -26,23 +34,25 @@ class _SignUpPageState extends State<SignUpPage> {
                   image: AssetImage('assets/images/logo.png'),
                 ),
               ),
+            ),*/
+            GestureDetector(
+              onTap: (){},
+              child: const CircleAvatar(
+                backgroundImage:
+                AssetImage('assets/images/chef.png'),
+                radius: 70,
+              ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Sign up',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            Padding(
+
+            const Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: SignUpForm()),
             TextButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignInPage()));
+                      MaterialPageRoute(builder: (context) => const SignInPage()));
                 },
-                child: Text('Already have an account? Sign in here!'))
+                child: const Text('Already have an account? Sign in here!'))
           ],
         ),
       ),

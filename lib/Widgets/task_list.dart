@@ -19,10 +19,22 @@ class _TaskListState extends State<TaskList> {
 
   late SharedPreferences sharedPreferences;
 
+  _TaskListState(){
+    /*debugPrint("Nonchecked size is ${widget._nonChecked.length}");
+    debugPrint("Checked size is ${widget._checked.length}");*/
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    fn();
+    debugPrint("Nonchecked size is ${widget._nonChecked.length}");
+    debugPrint("Checked size is ${widget._checked.length}");
+  }
+
   @override
   void initState() {
-    loadSharedPreferencesAndData();
     super.initState();
+    loadSharedPreferencesAndData();
   }
 
   void loadSharedPreferencesAndData() async {
@@ -33,20 +45,21 @@ class _TaskListState extends State<TaskList> {
     // iterating through the list and constructing objects from the strings
     // after that we decide if a object is a checked task or unchecked task
     for(int i = 0; i< strList.length; i++)
-      {
-        TaskModel e = TaskModel.fromString(strList[i]);
-        if(e.checked){
-          widget._checked.add(e);
-        }
-        else{
-          widget._nonChecked.add(e);
-        }
+    {
+      TaskModel e = TaskModel.fromString(strList[i]);
+      if(e.checked){
+        widget._checked.add(e);
       }
+      else{
+        widget._nonChecked.add(e);
+      }
+    }
     setState(() {});
   }
 
   @override
   void dispose() {
+    super.dispose();
     List<String> savedTasks = List<String>.empty(growable: true);
     for(int i = 0; i<widget._nonChecked.length;i++)
       {

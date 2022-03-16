@@ -66,7 +66,7 @@ class TaskTileState extends State<TaskTile> {
             onPressed: () {
               widget.onDelete!();
             },
-            icon: const Icon(Icons.close)),
+            icon: const Icon(Icons.delete)),
         title: Row(children: [
           Expanded(
               child: _StrikeThrough(
