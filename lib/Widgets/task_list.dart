@@ -5,10 +5,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'TaskModel.dart';
 
 class TaskList extends StatefulWidget {
-  final List<TaskModel> _nonChecked = List<TaskModel>.empty(growable: true);
-  final List<TaskModel> _checked = List<TaskModel>.empty(growable: true);
+  List<TaskModel> _nonChecked = List<TaskModel>.empty(growable: true);
+  List<TaskModel> _checked = List<TaskModel>.empty(growable: true);
 
-  TaskList();
+  TaskList()
+  {
+    debugPrint("TaskList created");
+  }
 
   @override
   State<TaskList> createState() => _TaskListState();
@@ -19,31 +22,15 @@ class _TaskListState extends State<TaskList> {
 
   late SharedPreferences sharedPreferences;
 
-  _TaskListState(){
-    /*debugPrint("Nonchecked size is ${widget._nonChecked.length}");
-    debugPrint("Checked size is ${widget._checked.length}");*/
-  }
-
-  @override
-  void setState(VoidCallback fn) {
-    fn();
-    debugPrint("Nonchecked size is ${widget._nonChecked.length}");
-    debugPrint("Checked size is ${widget._checked.length}");
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    loadSharedPreferencesAndData();
-  }
-
-  void loadSharedPreferencesAndData() async {
+  Future<void> loadSharedPreferencesAndData() async {
     sharedPreferences = await SharedPreferences.getInstance();
     // get the string list from internal storage
     var strList = sharedPreferences.getStringList('tasklist') ?? List<String>.empty(growable: true);
     debugPrint("list size is ${strList.length}");
     // iterating through the list and constructing objects from the strings
     // after that we decide if a object is a checked task or unchecked task
+    widget._nonChecked.clear();
+    widget._checked.clear();
     for(int i = 0; i< strList.length; i++)
     {
       TaskModel e = TaskModel.fromString(strList[i]);
@@ -54,17 +41,21 @@ class _TaskListState extends State<TaskList> {
         widget._nonChecked.add(e);
       }
     }
-    setState(() {});
   }
 
   @override
   void dispose() {
     super.dispose();
+    saveLists();
+  }
+
+  void saveLists()
+  {
     List<String> savedTasks = List<String>.empty(growable: true);
     for(int i = 0; i<widget._nonChecked.length;i++)
-      {
-        savedTasks.add(widget._nonChecked.elementAt(i).toString());
-      }
+    {
+      savedTasks.add(widget._nonChecked.elementAt(i).toString());
+    }
     for(int i = 0; i<widget._checked.length;i++)
     {
       savedTasks.add(widget._checked.elementAt(i).toString());
@@ -74,6 +65,16 @@ class _TaskListState extends State<TaskList> {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<void>(
+      future: loadSharedPreferencesAndData(),
+      builder: (context, AsyncSnapshot snapshot)
+      {
+        return buildTaskList(context);
+      }
+    );
+  }
+
+  Widget buildTaskList(BuildContext context) {
     ScrollController _scrollController =
         PrimaryScrollController.of(context) ?? ScrollController();
     return CustomScrollView(
@@ -90,6 +91,7 @@ class _TaskListState extends State<TaskList> {
                   onDelete: () {
                     setState(() {
                       widget._nonChecked.removeAt(index);
+                      saveLists();
                     });
                   },
                   onTextChanged: (value) => OnTextChanged(value, index, false));
@@ -102,6 +104,7 @@ class _TaskListState extends State<TaskList> {
                 }
                 final TaskModel item = widget._nonChecked.removeAt(oldPos);
                 widget._nonChecked.insert(newPos, item);
+                saveLists();
               });
             }),
         SliverToBoxAdapter(
@@ -138,11 +141,13 @@ class _TaskListState extends State<TaskList> {
     } else {
       widget._nonChecked.elementAt(index).name = value;
     }
+    saveLists();
   }
 
   void OnItemAdd() {
     setState(() {
       widget._nonChecked.add(TaskModel());
+      saveLists();
     });
   }
 
@@ -151,11 +156,13 @@ class _TaskListState extends State<TaskList> {
       setState(() {
         TaskModel task = widget._nonChecked.removeAt(index);
         widget._checked.add(task);
+        saveLists();
       });
     } else {
       setState(() {
         TaskModel task = widget._checked.removeAt(index);
         widget._nonChecked.add(task);
+        saveLists();
       });
     }
     DebugList(widget._nonChecked, "nonChecked");
